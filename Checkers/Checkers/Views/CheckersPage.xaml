@@ -2,121 +2,15 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:Checkers.ViewModels"
+             xmlns:views="clr-namespace:Checkers.Views"
              x:Class="Checkers.Views.CheckersPage"
              Title="CheckersPage"
              BackgroundColor="gray">
     <ContentPage.BindingContext>
         <viewModels:CheckersViewModel />
     </ContentPage.BindingContext>
-    <ScrollView Orientation="Both">
-        <ScrollView.Content>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-
-
-                <ScrollView Grid.Row="1" Orientation="Vertical">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100" />
-                            <ColumnDefinition Width="100" />
-                            <ColumnDefinition Width="100" />
-                            <ColumnDefinition Width="100" />
-                            <ColumnDefinition Width="100" />
-                            <ColumnDefinition Width="100" />
-                            <ColumnDefinition Width="100" />
-                            <ColumnDefinition Width="100" />
-                        </Grid.ColumnDefinitions>
-
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="100" />
-                            <RowDefinition Height="100" />
-                            <RowDefinition Height="100" />
-                            <RowDefinition Height="100" />
-                            <RowDefinition Height="100" />
-                            <RowDefinition Height="100" />
-                            <RowDefinition Height="100" />
-                            <RowDefinition Height="100" />
-                        </Grid.RowDefinitions>
-                        <Border Grid.Column="0" Grid.Row="0" Background="White" />
-                        <Border Grid.Column="1" Grid.Row="0" Background="Black" />
-                        <Border Grid.Column="2" Grid.Row="0" Background="White" />
-                        <Border Grid.Column="3" Grid.Row="0" Background="Black" />
-                        <Border Grid.Column="4" Grid.Row="0" Background="White" />
-                        <Border Grid.Column="5" Grid.Row="0" Background="Black" />
-                        <Border Grid.Column="6" Grid.Row="0" Background="White" />
-                        <Border Grid.Column="7" Grid.Row="0" Background="Black" />
-
-                        <Border Grid.Column="0" Grid.Row="2" Background="White" />
-                        <Border Grid.Column="1" Grid.Row="2" Background="Black" />
-                        <Border Grid.Column="2" Grid.Row="2" Background="White" />
-                        <Border Grid.Column="3" Grid.Row="2" Background="Black" />
-                        <Border Grid.Column="4" Grid.Row="2" Background="White" />
-                        <Border Grid.Column="5" Grid.Row="2" Background="Black" />
-                        <Border Grid.Column="6" Grid.Row="2" Background="White" />
-                        <Border Grid.Column="7" Grid.Row="2" Background="Black" />
-
-                        <Border Grid.Column="0" Grid.Row="4" Background="White" />
-                        <Border Grid.Column="1" Grid.Row="4" Background="Black" />
-                        <Border Grid.Column="2" Grid.Row="4" Background="White" />
-                        <Border Grid.Column="3" Grid.Row="4" Background="Black" />
-                        <Border Grid.Column="4" Grid.Row="4" Background="White" />
-                        <Border Grid.Column="5" Grid.Row="4" Background="Black" />
-                        <Border Grid.Column="6" Grid.Row="4" Background="White" />
-                        <Border Grid.Column="7" Grid.Row="4" Background="Black" />
-
-                        <Border Grid.Column="0" Grid.Row="6" Background="White" />
-                        <Border Grid.Column="1" Grid.Row="6" Background="Black" />
-                        <Border Grid.Column="2" Grid.Row="6" Background="White" />
-                        <Border Grid.Column="3" Grid.Row="6" Background="Black" />
-                        <Border Grid.Column="4" Grid.Row="6" Background="White" />
-                        <Border Grid.Column="5" Grid.Row="6" Background="Black" />
-                        <Border Grid.Column="6" Grid.Row="6" Background="White" />
-                        <Border Grid.Column="7" Grid.Row="6" Background="Black" />
-
-
-                        <Border Grid.Column="0" Grid.Row="1" Background="Black" />
-                        <Border Grid.Column="1" Grid.Row="1" Background="White" />
-                        <Border Grid.Column="2" Grid.Row="1" Background="Black" />
-                        <Border Grid.Column="3" Grid.Row="1" Background="White" />
-                        <Border Grid.Column="4" Grid.Row="1" Background="Black" />
-                        <Border Grid.Column="5" Grid.Row="1" Background="White" />
-                        <Border Grid.Column="6" Grid.Row="1" Background="Black" />
-                        <Border Grid.Column="7" Grid.Row="1" Background="White" />
-
-
-                        <Border Grid.Column="0" Grid.Row="3" Background="Black" />
-                        <Border Grid.Column="1" Grid.Row="3" Background="White" />
-                        <Border Grid.Column="2" Grid.Row="3" Background="Black" />
-                        <Border Grid.Column="3" Grid.Row="3" Background="White" />
-                        <Border Grid.Column="4" Grid.Row="3" Background="Black" />
-                        <Border Grid.Column="5" Grid.Row="3" Background="White" />
-                        <Border Grid.Column="6" Grid.Row="3" Background="Black" />
-                        <Border Grid.Column="7" Grid.Row="3" Background="White" />
-
-                        <Border Grid.Column="0" Grid.Row="5" Background="Black" />
-                        <Border Grid.Column="1" Grid.Row="5" Background="White" />
-                        <Border Grid.Column="2" Grid.Row="5" Background="Black" />
-                        <Border Grid.Column="3" Grid.Row="5" Background="White" />
-                        <Border Grid.Column="4" Grid.Row="5" Background="Black" />
-                        <Border Grid.Column="5" Grid.Row="5" Background="White" />
-                        <Border Grid.Column="6" Grid.Row="5" Background="Black" />
-                        <Border Grid.Column="7" Grid.Row="5" Background="White" />
-
-                        <Border Grid.Column="0" Grid.Row="7" Background="Black" />
-                        <Border Grid.Column="1" Grid.Row="7" Background="White" />
-                        <Border Grid.Column="2" Grid.Row="7" Background="Black" />
-                        <Border Grid.Column="3" Grid.Row="7" Background="White" />
-                        <Border Grid.Column="4" Grid.Row="7" Background="Black" />
-                        <Border Grid.Column="5" Grid.Row="7" Background="White" />
-                        <Border Grid.Column="6" Grid.Row="7" Background="Black" />
-                        <Border Grid.Column="7" Grid.Row="7" Background="White" />
-                    </Grid>
-                </ScrollView>
-            </Grid>
-        </ScrollView.Content>
-    </ScrollView>
+    <Grid x:Name="boardGrid">
+        <views:TileView TileColor="Red"></views:TileView>
+    </Grid>
     
 </ContentPage>

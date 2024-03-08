@@ -51,10 +51,14 @@
     <ItemGroup>
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+        <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
     </ItemGroup>
 
     <ItemGroup>
       <MauiXaml Update="Views\CheckersPage.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </MauiXaml>
+      <MauiXaml Update="Views\TileView.xaml">
         <Generator>MSBuild:Compile</Generator>
       </MauiXaml>
     </ItemGroup>

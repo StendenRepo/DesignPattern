@@ -38,6 +38,8 @@ Hiermee kan de laatste move(s) ongedaan worden gemaakt en het bord gereset worde
 **Observer**
 Met de observer gaan we zorgen dat klassen zoals het scorebord en het bord niet aan elkaar gekoppeld zijn. De Game klasse regelt de relatie tussen de verschillende klassen zoals het bord, scoreboard en player. Hierdoor is de code makkelijker te onderhouden en uit te breiden.
 
+Een andere optie is om de Piece class x en y coordinaten te geven en daar de subject van te maken. De board class krijgt dan een notificatie als de coordinaten van de een piece zijn veranderd.
+
 **Object pool**
 De object is voor verantwoordelijk voor het aanmaken en beheren van alle pieces. Dit is makkelijk omdat een damspel een vast aantal pieces heeft die eenmaal aangemaakt kunnen worden en zodra ze niet meer nodig zijn weggegooid worden uit het geheugen.
 

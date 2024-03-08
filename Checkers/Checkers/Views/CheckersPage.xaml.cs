@@ -5,5 +5,5 @@ public partial class CheckersPage : ContentPage
 	public CheckersPage()
 	{
 		InitializeComponent();
-	}
+    }
 }
