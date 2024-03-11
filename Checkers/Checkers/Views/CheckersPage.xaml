@@ -3,14 +3,49 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:Checkers.ViewModels"
              xmlns:views="clr-namespace:Checkers.Views"
+             xmlns:models="clr-namespace:Checkers.Models"
+             x:DataType="viewModels:CheckersViewModel"
              x:Class="Checkers.Views.CheckersPage"
              Title="CheckersPage"
              BackgroundColor="gray">
     <ContentPage.BindingContext>
         <viewModels:CheckersViewModel />
     </ContentPage.BindingContext>
-    <Grid x:Name="boardGrid">
-        <views:TileView TileColor="Red"></views:TileView>
-    </Grid>
+    <StackLayout HorizontalOptions="Center">
+        <CollectionView ItemsSource="{Binding ChessBoard}" ItemSizingStrategy="MeasureFirstItem" MaximumHeightRequest="800" VerticalOptions="FillAndExpand">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Span="8" Orientation="Horizontal">
+                    
+                </GridItemsLayout>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Tile">
+                    <Frame WidthRequest="100"
+                           HeightRequest="100"
+                           CornerRadius="0"
+                           Padding="0"
+                           Margin="0"
+                           x:Name="tile"
+                           BackgroundColor="{Binding Color}"
+                           BorderColor="{Binding Color}"
+                    >
+                        <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                            <Ellipse  Fill="Black"  WidthRequest="60"  HeightRequest="60"  HorizontalOptions="Center"
+                                      VerticalOptions="Center" Margin="0"/>
+                        </StackLayout>
+
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewModels:CheckersViewModel}}, Path=SelectTile}"
+                                CommandParameter="{Binding .}">
+
+                            </TapGestureRecognizer>
+
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
     
 </ContentPage>

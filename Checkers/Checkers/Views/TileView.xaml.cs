@@ -1,5 +1,3 @@
-using ABI.Microsoft.UI.Xaml.Shapes;
-
 namespace Checkers.Views;
 
 public partial class TileView : ContentView
