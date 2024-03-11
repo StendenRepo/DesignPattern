@@ -1,10 +1,11 @@
 ﻿using System.Collections.ObjectModel;
 using Checkers.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.Input;
 
 namespace Checkers.ViewModels
 {
-    public class CheckersViewModel : ObservableObject
+    public partial class CheckersViewModel : ObservableObject
     {
         public ObservableCollection<Tile> ChessBoard { get; set; }
         public CheckersViewModel()
@@ -25,9 +26,10 @@ namespace Checkers.ViewModels
             }
         }
 
+        [ICommand]
         public void SelectTile(Tile selectedTile)
         {
-            //selectedTile.Color = Color.Parse("Green");
+            selectedTile.Color = Color.Parse("Green");
         }
     }
 }

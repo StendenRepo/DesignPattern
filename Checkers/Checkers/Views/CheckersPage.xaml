@@ -36,7 +36,7 @@
 
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer 
-                                Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewModels:CheckersViewModel}}, Path=SelectTile}"
+                                Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewModels:CheckersViewModel}}, Path=SelectTileCommand}"
                                 CommandParameter="{Binding .}">
 
                             </TapGestureRecognizer>
