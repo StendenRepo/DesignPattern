@@ -24,13 +24,13 @@ namespace Checkers.Models
             this.Row = row;
             this.Column = col;
             this.Piece = new Piece(row, col);
-            SetColor();
-            SetPieceColor();
+            SetStartingColor();
         }
 
-        private void SetColor()
+        public void SetStartingColor()
         {
             this.Color = (this.Row + this.Column) % 2 != 0 ? Color.Parse("Brown") : Color.Parse("White");
+            SetPieceColor();
         }
 
         private void SetPieceColor()

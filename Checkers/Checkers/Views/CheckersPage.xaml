@@ -12,7 +12,8 @@
         <viewModels:CheckersViewModel />
     </ContentPage.BindingContext>
     <StackLayout HorizontalOptions="Center">
-        <CollectionView ItemsSource="{Binding ChessBoard}" ItemSizingStrategy="MeasureFirstItem" MaximumHeightRequest="800" VerticalOptions="FillAndExpand">
+        <Button Text="Reset" Command="{Binding ResetGameCommand}"></Button>
+        <CollectionView ItemsSource="{Binding Board.Tiles}" ItemSizingStrategy="MeasureFirstItem" MaximumHeightRequest="800" VerticalOptions="FillAndExpand">
             <CollectionView.ItemsLayout>
                 <GridItemsLayout Span="8" Orientation="Horizontal">
                     
