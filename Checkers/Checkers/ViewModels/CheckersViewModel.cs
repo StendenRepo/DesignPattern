@@ -16,12 +16,12 @@ namespace Checkers.ViewModels
 
         public void InitializeBoard()
         {
-            for (int row = 0; row < 8; row++)
+            for (var row = 0; row < 8; row++)
             {
-                for (int col = 0; col < 8; col++)
+                for (var col = 0; col < 8; col++)
                 {
-                    bool isWhite = (row + col) % 2 != 0; // Alternate color for checkerboard pattern
-                    ChessBoard.Add(new Tile { Row = row, Column = col, Color = isWhite ? Color.Parse("Brown") : Color.Parse("White")});
+                    var tile = new Tile(row, col);
+                    ChessBoard.Add(tile);
                 }
             }
         }
