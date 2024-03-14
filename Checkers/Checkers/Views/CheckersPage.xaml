@@ -33,8 +33,9 @@
                         <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
                             <Ellipse  Fill="{Binding Piece.Color}"  WidthRequest="60"  HeightRequest="60"  HorizontalOptions="Center"
                                       VerticalOptions="Center" Margin="0"/>
+                            <Label Text="{Binding Position.Row}"></Label>
+                            <Label Text="{Binding Position.Column}"></Label>
                         </StackLayout>
-
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer 
                                 Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewModels:CheckersViewModel}}, Path=SelectTileCommand}"
