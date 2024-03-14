@@ -23,13 +23,13 @@ namespace Checkers.Models
             this.IsSelected = false;
             this.Position = position;
             this.Piece = new Piece(position);
-            SetStartingColor();
+            SetStandardColor();
+            SetPieceColor();
         }
 
-        public void SetStartingColor()
+        public void SetStandardColor()
         {
             this.Color = (this.Position.Row + this.Position.Column) % 2 != 0 ? Colors.Brown : Colors.White;
-            SetPieceColor();
         }
 
         public void HidePiece()
@@ -41,6 +41,22 @@ namespace Checkers.Models
         {
             if (this.Position.Row + this.Position.Column % 2 == 0 || this.Color == Colors.White) return;
             this.Piece.SetStartingColor();
+        }
+
+        public bool HasPiece()
+        {
+            return this.Piece.Color != Colors.Transparent;
+        }
+
+        public void Highlight()
+        {
+            if (this.HasPiece()) return;
+            this.Color = Colors.Blue;
+        }
+
+        public bool IsHighlighted()
+        {
+            return this.Color == Colors.Blue;
         }
     }
 }

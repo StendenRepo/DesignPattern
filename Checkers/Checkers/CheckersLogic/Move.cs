@@ -19,8 +19,8 @@ namespace Checkers.CheckersLogic
         }
         public void Execute(Board board)
         {
-            var fromTile = board.Tiles.First(t => t.Position.Column == this.FromPosition.Column && t.Position.Row == this.FromPosition.Row);
-            var toTile = board.Tiles.First(t => t.Position.Column == this.ToPosition.Column && t.Position.Row == this.ToPosition.Row);
+            var fromTile = board.GetTileByPosition(FromPosition);
+            var toTile = board.GetTileByPosition(ToPosition);
             fromTile.HidePiece();
             toTile.HidePiece();
         }

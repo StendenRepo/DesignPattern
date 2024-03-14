@@ -11,5 +11,10 @@ namespace Checkers.Models
         public bool IsWhite { get; set; }
         public string Name { get; set; }
 
+        public Player(bool isWhite, string name)
+        {
+            this.IsWhite = isWhite;
+            this.Name = name;
+        }
     }
 }
