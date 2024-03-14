@@ -3,7 +3,6 @@ using Checkers.CheckersLogic;
 using Checkers.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
-using Microsoft.UI.Xaml.Controls;
 
 namespace Checkers.ViewModels
 {
@@ -20,10 +19,12 @@ namespace Checkers.ViewModels
         }
 
         [ICommand]
-        public void SelectTile(Tile selectedTile)
+        public void SelectTile(Tile tile)
         {
-            this._selectedTile = selectedTile;
-            selectedTile.Color = Color.Parse("Green");
+            if (tile.Color == Colors.White) return;
+
+            this._selectedTile = tile;
+            tile.Color = Colors.Green;
         }
 
         [ICommand]

@@ -3,33 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Checkers.CheckersLogic;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Checkers.Models
 {
     public partial class Piece : ObservableObject
     {
-        private readonly int _row;
-        private readonly int _column;
+        public Position Position { get; }
 
         [ObservableProperty]
         public Color _color;
 
-        public Piece(int row, int column)
+        public Piece(Position position)
         {
-            this._row = row;
-            this._column = column;
+            this.Position = position;
         }
 
         public void SetStartingColor()
         {
-            if (this._column < 3)
+            if (this.Position.Row < 3)
             {
-                this.Color = Color.Parse("Black");
+                this.Color = Colors.Black;
             }
-            else if (this._column > 4)
+            else if (this.Position.Row > 4)
             {
-                this.Color = Color.Parse("White");
+                this.Color = Colors.White;
             }
             else
             {
@@ -37,5 +36,23 @@ namespace Checkers.Models
             }
 
         }
+
+        public void Hide()
+        {
+            this.Color = Colors.Brown;
+
+        }
+
+        //public IEnumerable<Move> GetMoves()
+        //{
+        //    if (this.Color == Colors.Black)
+        //    {
+
+        //    }
+        //    List<Move> moves = new List<Move>
+        //    {
+        //        new Move(this.Position.Column - 1,              )
+        //    };
+        //}
     }
 }

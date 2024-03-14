@@ -14,11 +14,11 @@ namespace Checkers.CheckersLogic
 
         public void InitializeBoard()
         {
-            for (var row = 0; row < 8; row++)
+            for (var col = 0; col < 8; col++)
             {
-                for (var col = 0; col < 8; col++)
+                for (var row = 0; row < 8; row++)
                 {
-                    var tile = new Tile(row, col);
+                    var tile = new Tile(new Position(row, col));
                     Tiles.Add(tile);
                 }
             }

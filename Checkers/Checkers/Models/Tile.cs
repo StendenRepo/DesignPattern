@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Checkers.CheckersLogic;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Checkers.Models
 {
     public partial class Tile : ObservableObject
     {
-        public int Row { get; set; }
-        public int Column { get; set; }
+        public Position Position { get; }
         public bool IsSelected { get; set; }
 
         public Piece Piece { get; set; }
@@ -18,24 +18,28 @@ namespace Checkers.Models
         [ObservableProperty] 
         public Color _color;
 
-        public Tile(int row, int col)
+        public Tile(Position position)
         {
             this.IsSelected = false;
-            this.Row = row;
-            this.Column = col;
-            this.Piece = new Piece(row, col);
+            this.Position = position;
+            this.Piece = new Piece(position);
             SetStartingColor();
         }
 
         public void SetStartingColor()
         {
-            this.Color = (this.Row + this.Column) % 2 != 0 ? Color.Parse("Brown") : Color.Parse("White");
+            this.Color = (this.Position.Row + this.Position.Column) % 2 != 0 ? Colors.Brown : Colors.White;
             SetPieceColor();
+        }
+
+        public void HidePiece()
+        {
+            this.Piece.Hide();
         }
 
         private void SetPieceColor()
         {
-            if (this.Row + this.Column % 2 == 0 || this.Color == Color.Parse("White")) return;
+            if (this.Position.Row + this.Position.Column % 2 == 0 || this.Color == Colors.White) return;
             this.Piece.SetStartingColor();
         }
     }
