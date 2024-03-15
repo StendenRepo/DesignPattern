@@ -11,41 +11,32 @@
     <ContentPage.BindingContext>
         <viewModels:CheckersViewModel />
     </ContentPage.BindingContext>
-    <StackLayout HorizontalOptions="Center">
-        <Button Text="Reset" Command="{Binding ResetGameCommand}"></Button>
-        <CollectionView ItemsSource="{Binding Board.Tiles}" ItemSizingStrategy="MeasureFirstItem" MaximumHeightRequest="800" VerticalOptions="FillAndExpand">
-            <CollectionView.ItemsLayout>
-                <GridItemsLayout Span="8" Orientation="Horizontal">
-                    
-                </GridItemsLayout>
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:Tile">
-                    <Frame WidthRequest="100"
-                           HeightRequest="100"
-                           CornerRadius="0"
-                           Padding="0"
-                           Margin="0"
-                           x:Name="tile"
-                           BackgroundColor="{Binding Color}"
-                           BorderColor="{Binding Color}"
-                    >
-                        <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
-                            <Ellipse  Fill="{Binding Piece.Color}"  WidthRequest="60"  HeightRequest="60"  HorizontalOptions="Center"
-                                      VerticalOptions="Center" Margin="0"/>
-                        </StackLayout>
-                        <Frame.GestureRecognizers>
-                            <TapGestureRecognizer 
-                                Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewModels:CheckersViewModel}}, Path=SelectTileCommand}"
-                                CommandParameter="{Binding .}">
-
-                            </TapGestureRecognizer>
-
-                        </Frame.GestureRecognizers>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </StackLayout>
-    
+    <Grid BindableLayout.ItemsSource="{Binding Board.Tiles}" HorizontalOptions="Center" MaximumWidthRequest="800"  MaximumHeightRequest="800"  Margin="0" Padding="0"  ColumnDefinitions="*,*,*,*,*,*,*,*" RowDefinitions="*,*,*,*,*,*,*,*">
+        <BindableLayout.ItemTemplate>
+            <DataTemplate x:DataType="models:Tile">
+                <Frame MinimumWidthRequest="100"
+                       MinimumHeightRequest="100"
+                       CornerRadius="0"
+                       Padding="0"
+                       Margin="0"
+                       x:Name="tile"
+                       BackgroundColor="{Binding Color}"
+                       BorderColor="{Binding Color}"
+                       Grid.Row="{Binding Position.Row}"
+                       Grid.Column="{Binding Position.Column}"
+                >
+                    <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                        <Ellipse  Fill="{Binding Piece.Color}"  WidthRequest="60"  HeightRequest="60"  HorizontalOptions="Center"
+                                  VerticalOptions="Center" Margin="0"/>
+                    </StackLayout>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewModels:CheckersViewModel}}, Path=SelectTileCommand}"
+                            CommandParameter="{Binding .}">
+                        </TapGestureRecognizer>
+                    </Frame.GestureRecognizers>
+                </Frame>
+            </DataTemplate>
+        </BindableLayout.ItemTemplate>
+    </Grid>
 </ContentPage>
