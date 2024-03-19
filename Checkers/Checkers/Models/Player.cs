@@ -6,15 +6,18 @@ using System.Threading.Tasks;
 
 namespace Checkers.Models
 {
-    public partial class Player
+    public abstract class Player
     {
-        public bool IsWhite { get; set; }
-        public string Name { get; set; }
+        public bool IsWhite { get; }
+        public string Name { get; }
+        
+        public Color Color { get; }
 
-        public Player(bool isWhite, string name)
+        protected Player(bool isWhite, string name)
         {
             this.IsWhite = isWhite;
             this.Name = name;
+            this.Color = isWhite ? Colors.White : Colors.Black;
         }
     }
 }

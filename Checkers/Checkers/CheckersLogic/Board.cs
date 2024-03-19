@@ -34,18 +34,18 @@ namespace Checkers.CheckersLogic
 
         public bool IsEmpty(Position position)
         {
-            return this.GetTileByPosition(position).HasPiece();
+            return !this.GetTileByPosition(position).HasPiece();
         }
 
         public static bool IsInside(Position position)
         {
-            return position.Row is >= 0 and <= 8 && position.Column is >= 0 and <= 8;
+            return position.Row is >= 0 and <= 7 && position.Column is >= 0 and <= 7;
         }
 
-        public void ShowPossibleMoves(Tile tile)
+        public void ShowPossibleMoves(Tile tile, Player player)
         {
             this.ResetHighlightedTiles();
-            var availablePositions = tile.Piece.GetMoves(this);
+            var availablePositions = tile.Piece.GetMoves(this, player);
             foreach (var t in this.Tiles)
             {
                 foreach (var pos in availablePositions)
@@ -71,6 +71,5 @@ namespace Checkers.CheckersLogic
         {
             return Tiles.First(t => t.Position.Column == pos.Column && t.Position.Row == pos.Row);
         }
-
     }
 }
