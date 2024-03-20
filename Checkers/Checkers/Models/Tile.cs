@@ -58,5 +58,10 @@ namespace Checkers.Models
         {
             return this.Color == Colors.Blue;
         }
+
+        public Color GetPieceColor()
+        {
+            return this.Piece.Color;
+        }
     }
 }
