@@ -22,7 +22,7 @@ namespace Checkers.Models
         {
             this.IsSelected = false;
             this.Position = position;
-            this.Piece = new Piece(position);
+            this.Piece = new NormalPiece(position);
             SetStandardColor();
             SetPieceColor();
         }
@@ -39,13 +39,13 @@ namespace Checkers.Models
 
         private void SetPieceColor()
         {
-            if (this.Position.Row + this.Position.Column % 2 == 0 || this.Color == Colors.White) return;
+            if (this.Position.Row + this.Position.Column % 2 == 0 || this.Color.Equals(Colors.White)) return;
             this.Piece.SetStartingColor();
         }
 
         public bool HasPiece()
         {
-            return this.Piece.Color != Colors.Transparent;
+            return !this.Piece.Color.Equals(Colors.Transparent);
         }
 
         public void Highlight()
@@ -56,7 +56,7 @@ namespace Checkers.Models
 
         public bool IsHighlighted()
         {
-            return this.Color == Colors.Blue;
+            return this.Color.Equals(Colors.Blue);
         }
 
         public Color GetPieceColor()

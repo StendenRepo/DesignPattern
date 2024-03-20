@@ -8,19 +8,16 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Checkers.Models
 {
-    public partial class Piece : ObservableObject
+    public abstract partial class Piece : ObservableObject
     {
-        public Position Position { get; }
-        
-        public bool HasSlain { get; set; }
+        protected Position Position { get; }
 
         [ObservableProperty]
         public Color _color;
 
-        public Piece(Position position)
+        protected Piece(Position position)
         {
             this.Position = position;
-            this.HasSlain = false;
         }
 
         public void SetStartingColor()
@@ -37,13 +34,11 @@ namespace Checkers.Models
             {
                 this.Color = Colors.Transparent;
             }
-
         }
 
         public void Hide()
         {
             this.Color = Colors.Transparent;
-
         }
 
         public void Show(Color color)
@@ -51,12 +46,9 @@ namespace Checkers.Models
             this.Color = color;
         }
 
-        public List<Position> GetMoves(Board board, Player player)
-        {
-            return this.GetPossibleMoves(board, player, this.Position);
-        }
-        
-        public List<Position> GetPossibleMoves(Board board, Player player, Position position, int horizontalDirection = 0)
+        public abstract List<Position> GetMoves(Board board, Player player);
+
+        protected List<Position> GetPossibleMoves(Board board, Player player, Position position, int horizontalDirection = 0)
         {
             var possibleMoves = new List<Position>();
             var verticalDirection = player.IsWhite ? -1 : 1;  // Adjust direction for player
