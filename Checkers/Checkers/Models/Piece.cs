@@ -67,9 +67,6 @@ namespace Checkers.Models
         {
             var possibleMoves = new List<Position>();
             var verticalDirection = player.IsWhite ? -1 : 1;  // Adjust direction for player
-
-            // TODO: Toevoegem dat er iets gedaan wordt met horizontalDirection als een vakje met piece van de tegenstander tegenkomt            
-            
             // Check diagonal moves in both directions
             for (var colOffset = -1; colOffset <= 1; colOffset += 2)
             { 
@@ -84,6 +81,13 @@ namespace Checkers.Models
                 // Check if move is within board bounds
                 if (Board.IsInside(targetPosition))
                 {
+                    var opponentColor = player.IsWhite ? Colors.Black : Colors.White;
+                    if (board.GetTileByPosition(targetPosition).Piece.Color == opponentColor &&
+                        board.GetTileByPosition(position).Piece.Color == opponentColor)
+                    {
+                        continue;
+                    }
+                    // target position opponent piece and position is opponent piece
                     // Check if the target tile is empty
                     if (board.IsEmpty(targetPosition))
                     {
@@ -92,7 +96,11 @@ namespace Checkers.Models
                             continue;
                         }
                         possibleMoves.Add(targetPosition);
-                        if (!HasSlain) continue;
+                        // if (!HasSlain) continue;
+                        if (board.GetTileByPosition(position).Piece.Color == player.Color)
+                        {
+                            continue;
+                        }
                         var moves = GetPossibleMoves(board, player, targetPosition);
                         if (moves.Count > 0)
                         {
