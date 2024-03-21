@@ -26,8 +26,8 @@ namespace Checkers.ViewModels
         [ICommand]
         public void SelectTile(Tile tile)
         {
-            if (tile.Color.Equals(Colors.White)) return;
-            var playerColor = this.PlayerTurn.IsWhite ? Colors.White : Colors.Black;
+            if (tile.Color.Equals(AppColors.WhiteTile)) return;
+            var playerColor = this.PlayerTurn.IsWhite ? AppColors.WhitePiece : AppColors.BlackPiece;
             
             if (this._selectedTile != null && tile.IsHighlighted())
             {
@@ -43,7 +43,7 @@ namespace Checkers.ViewModels
                 if (!tile.HasPiece()) return;
                 this._selectedTile = tile;
                 Board.ShowPossibleMoves(this._selectedTile, this.PlayerTurn);
-                tile.Color = Colors.Green;
+                tile.Color = AppColors.SelectedTile;
             }
         }
 

@@ -19,11 +19,11 @@ namespace Checkers.Models
         {
             if (this.Position.Row < 3)
             {
-                this.Color = Colors.Black;
+                this.Color = AppColors.BlackPiece;
             }
             else if (this.Position.Row > 4)
             {
-                this.Color = Colors.White;
+                this.Color = AppColors.WhitePiece;
             }
             else
             {
@@ -47,7 +47,7 @@ namespace Checkers.Models
         {
             var possibleMoves = new List<Position>();
             var verticalDirection = player.IsWhite ? -1 : 1;  // Adjust direction for player
-            var opponentColor = player.IsWhite ? Colors.Black : Colors.White;
+            var opponentColor = player.IsWhite ? AppColors.BlackPiece : AppColors.WhitePiece;
             
             // Check diagonal moves in both directions
             for (var colOffset = -1; colOffset <= 1; colOffset += 2)

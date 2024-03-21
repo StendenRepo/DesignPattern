@@ -17,7 +17,7 @@ namespace Checkers.Models
         {
             this.IsWhite = isWhite;
             this.Name = name;
-            this.Color = isWhite ? Colors.White : Colors.Black;
+            this.Color = isWhite ? AppColors.WhitePiece : AppColors.BlackPiece;
         }
     }
 }

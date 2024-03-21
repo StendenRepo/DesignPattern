@@ -29,7 +29,7 @@ namespace Checkers.Models
 
         public void SetStandardColor()
         {
-            this.Color = (this.Position.Row + this.Position.Column) % 2 != 0 ? Colors.Brown : Colors.White;
+            this.Color = (this.Position.Row + this.Position.Column) % 2 != 0 ? AppColors.BlackTile : AppColors.WhiteTile;
         }
 
         public void HidePiece()
@@ -39,7 +39,7 @@ namespace Checkers.Models
 
         private void SetPieceColor()
         {
-            if (this.Position.Row + this.Position.Column % 2 == 0 || this.Color.Equals(Colors.White)) return;
+            if (this.Position.Row + this.Position.Column % 2 == 0 || this.Color.Equals(AppColors.WhiteTile)) return;
             this.Piece.SetStartingColor();
         }
 
@@ -51,12 +51,12 @@ namespace Checkers.Models
         public void Highlight()
         {
             if (this.HasPiece()) return;
-            this.Color = Colors.Blue;
+            this.Color = AppColors.HighlightedTile;
         }
 
         public bool IsHighlighted()
         {
-            return this.Color.Equals(Colors.Blue);
+            return this.Color.Equals(AppColors.HighlightedTile);
         }
 
         public Color GetPieceColor()
