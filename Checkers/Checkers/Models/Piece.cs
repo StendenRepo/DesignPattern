@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Checkers.CheckersLogic;
+﻿using Checkers.CheckersLogic;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Checkers.Models
@@ -75,6 +70,10 @@ namespace Checkers.Models
                 // Check if the target tile is empty
                 if (board.IsEmpty(targetPosition))
                 {
+                    if (horizontalDirection != 0)
+                    {
+                        board.CapturedPositions.Add(position);
+                    }
                     // If the target position and current position are both empty. Skip the search for that part.
                     if (board.IsEmpty(position)) continue;
 

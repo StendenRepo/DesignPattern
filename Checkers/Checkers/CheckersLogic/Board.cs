@@ -5,12 +5,8 @@ namespace Checkers.CheckersLogic
 {
     public class Board
     {
-        public ObservableCollection<Tile> Tiles { get; }
-
-        public Board()
-        {
-            this.Tiles = new ObservableCollection<Tile>();
-        }
+        public ObservableCollection<Tile> Tiles { get; } = new();
+        public List<Position> CapturedPositions { get; } = new();
 
         public void InitializeBoard()
         {
@@ -44,23 +40,20 @@ namespace Checkers.CheckersLogic
 
         public void ShowPossibleMoves(Tile tile, Player player)
         {
+            this.CapturedPositions.Clear();
             this.ResetHighlightedTiles();
             var availablePositions = tile.Piece.GetMoves(this, player);
             foreach (var t in this.Tiles)
             {
-                foreach (var pos in availablePositions)
+                foreach (var pos in availablePositions.Where(pos => pos.Column == t.Position.Column && pos.Row == t.Position.Row))
                 {
-                    if (pos.Column == t.Position.Column && pos.Row == t.Position.Row)
-                    {
-                        t.Highlight();
-                    }
+                    t.Highlight();
                 }
             }
         }
 
         public void ResetHighlightedTiles()
         {
-            // kan nog veranderd worden naar een aparte lijst met tiles zodat je niet elke keer door de hele lijst heen hoeft.
             foreach (var t in this.Tiles)
             {
                 t.SetStandardColor();
@@ -70,6 +63,14 @@ namespace Checkers.CheckersLogic
         public Tile GetTileByPosition(Position pos)
         {
             return Tiles.First(t => t.Position.Column == pos.Column && t.Position.Row == pos.Row);
+        }
+
+        public void CapturePieces()
+        {
+            foreach (var capturedPosition in CapturedPositions)
+            {
+                GetTileByPosition(capturedPosition).HidePiece();
+            }
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using Checkers.CheckersLogic;
+﻿using Checkers.CheckersLogic;
 using Checkers.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
@@ -9,7 +8,7 @@ namespace Checkers.ViewModels
     public partial class CheckersViewModel : ObservableObject
     {
         private Tile _selectedTile;
-        public Board Board { get; set; }
+        public Board Board { get; }
         private Player PlayerTurn { get; set; }
         private Player Player1 { get; }
         private Player Player2 { get; }
@@ -32,6 +31,7 @@ namespace Checkers.ViewModels
             
             if (this._selectedTile != null && tile.IsHighlighted())
             {
+                Board.CapturePieces();
                 tile.Piece.Show(this._selectedTile.Piece.Color);
                 this._selectedTile.Piece.Hide();
                 this.Board.ResetHighlightedTiles();
@@ -45,8 +45,6 @@ namespace Checkers.ViewModels
                 Board.ShowPossibleMoves(this._selectedTile, this.PlayerTurn);
                 tile.Color = Colors.Green;
             }
-
-            // Bij een turn switch moet de selectedtile weer op null
         }
 
         [ICommand]
