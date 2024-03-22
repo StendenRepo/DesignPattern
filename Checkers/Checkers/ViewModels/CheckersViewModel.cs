@@ -34,8 +34,11 @@ namespace Checkers.ViewModels
                 Board.CapturePieces();
                 tile.Piece.Show(this._selectedTile.Piece.Color);
                 this._selectedTile.Piece.Hide();
-                //Check of steen op het einde is
-                this.Board.CheckIfPieceIsAtEnd(tile.Position);
+                //Check of piece op het einde van het bord is
+                if (this.Board.CheckIfPieceIsAtEnd(tile.Position))
+                {
+                    //upgrade piece met de decorator
+                }
                 this.Board.ResetHighlightedTiles();
                 this.PlayerTurn = this.PlayerTurn == Player1 ? Player2 : Player1;
             }
