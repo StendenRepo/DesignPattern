@@ -9,7 +9,6 @@
              Title="CheckersPage"
              BackgroundColor="gray">
     <VerticalStackLayout>
-        <Button Text="Go to home" VerticalOptions="Center" HorizontalOptions="Start" Command="{Binding GoToHomePageCommand}"></Button>
         <Grid BindableLayout.ItemsSource="{Binding Board.Tiles}" HorizontalOptions="Center" MaximumWidthRequest="720"  MaximumHeightRequest="720"  Margin="0" Padding="0"  ColumnDefinitions="*,*,*,*,*,*,*,*" RowDefinitions="*,*,*,*,*,*,*,*">
             <BindableLayout.ItemTemplate>
                 <DataTemplate x:DataType="models:Tile">

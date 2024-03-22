@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics;
 using Checkers.CheckersLogic;
 using Checkers.Models;
-using Checkers.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 
@@ -31,8 +30,6 @@ namespace Checkers.ViewModels
         [ICommand]
         public void SelectTile(Tile tile)
         {
-            Trace.WriteLine(Settings.Difficulty.ToString());
-            Trace.WriteLine(Settings.GameMode.ToString());
             if (tile.Color.Equals(AppColors.WhiteTile)) return;
             var playerColor = this.PlayerTurn.IsWhite ? AppColors.WhitePiece : AppColors.BlackPiece;
             
@@ -58,13 +55,6 @@ namespace Checkers.ViewModels
         public void ResetGame()
         {
             this.Board.Reset();
-        }
-
-        [ICommand]
-        public async void GoToHomePage()
-        {
-            Trace.WriteLine("test");
-            // await Shell.Current.Navigation.PushAsync(new HomePage());
         }
     }
 }
