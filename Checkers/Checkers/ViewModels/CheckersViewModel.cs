@@ -34,6 +34,8 @@ namespace Checkers.ViewModels
                 Board.CapturePieces();
                 tile.Piece.Show(this._selectedTile.Piece.Color);
                 this._selectedTile.Piece.Hide();
+                //Check of steen op het einde is
+                this.Board.CheckIfPieceIsAtEnd(tile.Position);
                 this.Board.ResetHighlightedTiles();
                 this.PlayerTurn = this.PlayerTurn == Player1 ? Player2 : Player1;
             }
