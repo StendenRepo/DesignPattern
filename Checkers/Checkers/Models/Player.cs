@@ -1,4 +1,6 @@
-﻿namespace Checkers.Models
+﻿using Checkers.CheckersLogic;
+
+namespace Checkers.Models
 {
     public abstract class Player
     {
@@ -11,6 +13,11 @@
             this.IsWhite = isWhite;
             this.Name = name;
             this.Color = isWhite ? AppColors.WhitePiece : AppColors.BlackPiece;
+        }
+
+        public virtual void MakeMove(Board board)
+        {
+            return;
         }
     }
 }

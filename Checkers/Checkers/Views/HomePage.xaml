@@ -6,7 +6,7 @@
              x:DataType="viewModels:CheckersViewModel">
     <ContentPage.Content>
         <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
-            <Label x:Name="GameMode" Text="Game mode" FontSize="40"></Label>
+            <Label x:Name="SelectGameMode" Text="Game mode" FontSize="40"></Label>
             <Button x:Name="Single" Text="1 player" Clicked="Button_OnClicked2"></Button>
             <Button x:Name="Double" Text="2 players" Clicked="Button_OnClicked1"></Button>
             <Label x:Name="SelectDifficulty" Text="Select difficulty" FontSize="40" IsVisible="false"></Label>

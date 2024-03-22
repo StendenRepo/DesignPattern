@@ -11,39 +11,63 @@ namespace Checkers.ViewModels
         private Tile _selectedTile;
         public Board Board { get; }
         private Player PlayerTurn { get; set; }
-        private Player Player1 { get; }
-        private Player Player2 { get; }
-        
-        public GameSettings Settings { get; private set;  }
+        private Player Player1 { get; set; }
+        private Player Player2 { get; set; }
+
+        public GameSettings Settings { get; private set; }
 
         public CheckersViewModel(GameSettings settings)
         {
             this.Board = new Board();
-            this.Board.InitializeBoard();
+            this.Settings = settings;
+            this.SetupGame();
+        }
+
+        private void SetupGame()
+        {
+            this.Board.Initialize();
             this._selectedTile = null;
             this.Player1 = new HumanPlayer(true, "player1");
-            this.Player2 = new HumanPlayer(false, "player2");
+            
+            if (Settings.GameMode == GameMode.Single && Settings.Difficulty != null)
+            {
+                this.Player2 = new ComputerPlayer(false, "player2", Settings.Difficulty);
+            }
+            else
+            {
+                this.Player2 = new HumanPlayer(false, "player2");
+            }
+            
             this.PlayerTurn = this.Player1;
-            this.Settings = settings;
         }
 
         [ICommand]
         public void SelectTile(Tile tile)
         {
+            // White tiles can't be selected
             if (tile.Color.Equals(AppColors.WhiteTile)) return;
             var playerColor = this.PlayerTurn.IsWhite ? AppColors.WhitePiece : AppColors.BlackPiece;
-            
+
             if (this._selectedTile != null && tile.IsHighlighted())
             {
-                Board.CapturePieces();
+                if (Math.Abs(tile.Position.Column - this._selectedTile.Position.Column) != 1 &&
+                    Math.Abs(tile.Position.Row - this._selectedTile.Position.Row) != 1)
+                {
+                    Board.CapturePieces();
+                }
                 tile.Piece.Show(this._selectedTile.Piece.Color);
                 this._selectedTile.Piece.Hide();
                 this.Board.ResetHighlightedTiles();
-                this.PlayerTurn = this.PlayerTurn == Player1 ? Player2 : Player1;
+                SwitchTurn();
+                if (PlayerTurn is ComputerPlayer)
+                {
+                    PlayerTurn.MakeMove(this.Board);
+                    SwitchTurn();
+                }
             }
             else
             {
-                if (!this.PlayerTurn.Color.Equals(tile.Piece.Color)) return ;
+                if (!this.PlayerTurn.Color.Equals(tile.Piece.Color)) return;
                 if (!tile.HasPiece()) return;
                 this._selectedTile = tile;
                 Board.ShowPossibleMoves(this._selectedTile, this.PlayerTurn);
@@ -55,6 +79,11 @@ namespace Checkers.ViewModels
         public void ResetGame()
         {
             this.Board.Reset();
+        }
+
+        private void SwitchTurn()
+        {
+            this.PlayerTurn = this.PlayerTurn == Player1 ? Player2 : Player1;
         }
     }
 }

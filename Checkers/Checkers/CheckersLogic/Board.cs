@@ -8,7 +8,7 @@ namespace Checkers.CheckersLogic
         public ObservableCollection<Tile> Tiles { get; } = new();
         public List<Position> CapturedPositions { get; } = new();
 
-        public void InitializeBoard()
+        public void Initialize()
         {
             for (var col = 0; col < 8; col++)
             {
@@ -38,11 +38,10 @@ namespace Checkers.CheckersLogic
             return position.Row is >= 0 and <= 7 && position.Column is >= 0 and <= 7;
         }
 
-        public void ShowPossibleMoves(Tile tile, Player player)
+        public List<Position> ShowPossibleMoves(Tile tile, Player player)
         {
-            this.CapturedPositions.Clear();
             this.ResetHighlightedTiles();
-            var availablePositions = tile.Piece.GetMoves(this, player);
+            var availablePositions = GetPossibleMoves(tile, player);
             foreach (var t in this.Tiles)
             {
                 foreach (var pos in availablePositions.Where(pos => pos.Column == t.Position.Column && pos.Row == t.Position.Row))
@@ -50,6 +49,15 @@ namespace Checkers.CheckersLogic
                     t.Highlight();
                 }
             }
+
+            return availablePositions;
+        }
+
+        public List<Position> GetPossibleMoves(Tile tile, Player player)
+        {
+            this.CapturedPositions.Clear();
+            var availablePositions = tile.Piece.GetMoves(this, player);
+            return availablePositions;
         }
 
         public void ResetHighlightedTiles()

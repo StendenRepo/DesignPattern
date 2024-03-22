@@ -1,9 +1,14 @@
-﻿namespace Checkers.CheckersLogic;
+﻿using Checkers.Models;
+
+namespace Checkers.CheckersLogic;
 
 public class BasicDifficulty : IStrategy
 {
-    public void Execute(Position currentPosition, List<Position> possibleMoves)
+    public (Position startPosition, Position endPosition) CalculateBestMove(Dictionary<Position, List<Position>> possibleMoves)
     {
-        throw new NotImplementedException();
+        // Picks a random move
+        var (randomStartTile, value) = possibleMoves.Where(n => n.Value.Count != 0).MinBy(x => Guid.NewGuid());
+        var randomEndTile = value.MinBy(x => Guid.NewGuid());
+        return (randomStartTile, randomEndTile);
     }
 }

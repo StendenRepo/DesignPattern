@@ -39,8 +39,11 @@ namespace Checkers.Models
 
         private void SetPieceColor()
         {
-            if (this.Position.Row + this.Position.Column % 2 == 0 || this.Color.Equals(AppColors.WhiteTile)) return;
             this.Piece.SetStartingColor();
+            if (this.Position.Row + this.Position.Column % 2 == 0 || this.Color.Equals(AppColors.WhiteTile))
+            {
+                this.Piece.Color = Colors.Transparent;
+            }
         }
 
         public bool HasPiece()
@@ -62,6 +65,11 @@ namespace Checkers.Models
         public Color GetPieceColor()
         {
             return this.Piece.Color;
+        }
+
+        public void ShowPiece(Color color)
+        {
+            this.Piece.Color = color;
         }
     }
 }

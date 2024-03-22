@@ -1,6 +1,8 @@
-﻿namespace Checkers.CheckersLogic;
+﻿using Checkers.Models;
+
+namespace Checkers.CheckersLogic;
 
 public interface IStrategy
 {
-    void Execute(Position currentPosition, List<Position> possibleMoves);
+    (Position startPosition, Position endPosition) CalculateBestMove(Dictionary<Position, List<Position>> possibleMoves);
 }
