@@ -1,5 +1,7 @@
-﻿using Checkers.CheckersLogic;
+﻿using System.Diagnostics;
+using Checkers.CheckersLogic;
 using Checkers.Models;
+using Checkers.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 
@@ -12,8 +14,10 @@ namespace Checkers.ViewModels
         private Player PlayerTurn { get; set; }
         private Player Player1 { get; }
         private Player Player2 { get; }
+        
+        public GameSettings Settings { get; private set;  }
 
-        public CheckersViewModel()
+        public CheckersViewModel(GameSettings settings)
         {
             this.Board = new Board();
             this.Board.InitializeBoard();
@@ -21,11 +25,14 @@ namespace Checkers.ViewModels
             this.Player1 = new HumanPlayer(true, "player1");
             this.Player2 = new HumanPlayer(false, "player2");
             this.PlayerTurn = this.Player1;
+            this.Settings = settings;
         }
 
         [ICommand]
         public void SelectTile(Tile tile)
         {
+            Trace.WriteLine(Settings.Difficulty.ToString());
+            Trace.WriteLine(Settings.GameMode.ToString());
             if (tile.Color.Equals(AppColors.WhiteTile)) return;
             var playerColor = this.PlayerTurn.IsWhite ? AppColors.WhitePiece : AppColors.BlackPiece;
             
@@ -51,6 +58,13 @@ namespace Checkers.ViewModels
         public void ResetGame()
         {
             this.Board.Reset();
+        }
+
+        [ICommand]
+        public async void GoToHomePage()
+        {
+            Trace.WriteLine("test");
+            // await Shell.Current.Navigation.PushAsync(new HomePage());
         }
     }
 }

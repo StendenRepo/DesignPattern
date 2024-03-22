@@ -8,35 +8,35 @@
              x:Class="Checkers.Views.CheckersPage"
              Title="CheckersPage"
              BackgroundColor="gray">
-    <ContentPage.BindingContext>
-        <viewModels:CheckersViewModel />
-    </ContentPage.BindingContext>
-    <Grid BindableLayout.ItemsSource="{Binding Board.Tiles}" HorizontalOptions="Center" MaximumWidthRequest="800"  MaximumHeightRequest="800"  Margin="0" Padding="0"  ColumnDefinitions="*,*,*,*,*,*,*,*" RowDefinitions="*,*,*,*,*,*,*,*">
-        <BindableLayout.ItemTemplate>
-            <DataTemplate x:DataType="models:Tile">
-                <Frame MinimumWidthRequest="100"
-                       MinimumHeightRequest="100"
-                       CornerRadius="0"
-                       Padding="0"
-                       Margin="0"
-                       x:Name="tile"
-                       BackgroundColor="{Binding Color}"
-                       BorderColor="{Binding Color}"
-                       Grid.Row="{Binding Position.Row}"
-                       Grid.Column="{Binding Position.Column}"
-                >
-                    <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
-                        <Ellipse  Fill="{Binding Piece.Color}"  WidthRequest="60"  HeightRequest="60"  HorizontalOptions="Center"
-                                  VerticalOptions="Center" Margin="0"/>
-                    </StackLayout>
-                    <Frame.GestureRecognizers>
-                        <TapGestureRecognizer 
-                            Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewModels:CheckersViewModel}}, Path=SelectTileCommand}"
-                            CommandParameter="{Binding .}">
-                        </TapGestureRecognizer>
-                    </Frame.GestureRecognizers>
-                </Frame>
-            </DataTemplate>
-        </BindableLayout.ItemTemplate>
-    </Grid>
+    <VerticalStackLayout>
+        <Button Text="Go to home" VerticalOptions="Center" HorizontalOptions="Start" Command="{Binding GoToHomePageCommand}"></Button>
+        <Grid BindableLayout.ItemsSource="{Binding Board.Tiles}" HorizontalOptions="Center" MaximumWidthRequest="720"  MaximumHeightRequest="720"  Margin="0" Padding="0"  ColumnDefinitions="*,*,*,*,*,*,*,*" RowDefinitions="*,*,*,*,*,*,*,*">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate x:DataType="models:Tile">
+                    <Frame MinimumWidthRequest="90"
+                           MinimumHeightRequest="90"
+                           CornerRadius="0"
+                           Padding="0"
+                           Margin="0"
+                           x:Name="tile"
+                           BackgroundColor="{Binding Color}"
+                           BorderColor="{Binding Color}"
+                           Grid.Row="{Binding Position.Row}"
+                           Grid.Column="{Binding Position.Column}"
+                    >
+                        <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                            <Ellipse  Fill="{Binding Piece.Color}"  WidthRequest="60"  HeightRequest="60"  HorizontalOptions="Center"
+                                      VerticalOptions="Center" Margin="0"/>
+                        </StackLayout>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewModels:CheckersViewModel}}, Path=SelectTileCommand}"
+                                CommandParameter="{Binding .}">
+                            </TapGestureRecognizer>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </Grid>
+    </VerticalStackLayout>
 </ContentPage>
