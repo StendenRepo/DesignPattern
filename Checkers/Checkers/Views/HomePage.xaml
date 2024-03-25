@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:Checkers.ViewModels"
+             x:Class="Checkers.Views.HomePage"
+             x:DataType="viewModels:CheckersViewModel">
+    <ContentPage.Content>
+        <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+            <Label x:Name="SelectGameMode" Text="Game mode" FontSize="40"></Label>
+            <Button x:Name="Single" Text="1 player" Clicked="Button_OnClicked2"></Button>
+            <Button x:Name="Double" Text="2 players" Clicked="Button_OnClicked1"></Button>
+            <Label x:Name="SelectDifficulty" Text="Select difficulty" FontSize="40" IsVisible="false"></Label>
+            <Button x:Name="BasicDifficulty" Text="Basic" IsVisible="False" Clicked="Button_OnClicked3"></Button>
+            <Button x:Name="AdvancedDifficulty" Text="Advanced" IsVisible="False" Clicked="Button_OnClicked4"></Button>
+        </VerticalStackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -8,7 +8,7 @@
 
     <ShellContent
         Title="Home"
-        ContentTemplate="{DataTemplate views:CheckersPage}"
-        Route="Views/CheckersPage" />
+        ContentTemplate="{DataTemplate views:HomePage}"
+        Route="Views/HomePage" />
 
 </Shell>

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Checkers.CheckersLogic;
 
 namespace Checkers.Models
 {
@@ -10,7 +6,6 @@ namespace Checkers.Models
     {
         public bool IsWhite { get; }
         public string Name { get; }
-        
         public Color Color { get; }
 
         protected Player(bool isWhite, string name)
@@ -18,6 +13,11 @@ namespace Checkers.Models
             this.IsWhite = isWhite;
             this.Name = name;
             this.Color = isWhite ? AppColors.WhitePiece : AppColors.BlackPiece;
+        }
+
+        public virtual void MakeMove(Board board)
+        {
+            return;
         }
     }
 }

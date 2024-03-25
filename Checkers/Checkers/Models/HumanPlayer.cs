@@ -1,4 +1,6 @@
-﻿namespace Checkers.Models;
+﻿using Checkers.CheckersLogic;
+
+namespace Checkers.Models;
 
 public class HumanPlayer : Player
 {
