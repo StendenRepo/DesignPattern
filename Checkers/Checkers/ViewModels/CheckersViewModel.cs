@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using Checkers.CheckersLogic;
+﻿using Checkers.CheckersLogic;
 using Checkers.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
@@ -77,7 +76,7 @@ namespace Checkers.ViewModels
         {
             this.Board.Reset();
         }
-
+        
         private void SwitchTurn()
         {
             this.PlayerTurn = this.PlayerTurn == Player1 ? Player2 : Player1;

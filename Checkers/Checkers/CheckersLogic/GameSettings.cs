@@ -23,10 +23,3 @@ public enum GameMode
     Single,
     Double
 }
-
-public enum Difficulty
-{
-    Basic,
-    Advanced,
-    None
-}
