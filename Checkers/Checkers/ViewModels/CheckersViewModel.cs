@@ -42,7 +42,7 @@ namespace Checkers.ViewModels
         }
 
         [ICommand]
-        public void SelectTile(Tile tile)
+        public async Task SelectTile(Tile tile)
         {
             // White tiles can't be selected
             if (tile.Color.Equals(AppColors.WhiteTile)) return;
@@ -50,17 +50,14 @@ namespace Checkers.ViewModels
 
             if (this._selectedTile != null && tile.IsHighlighted())
             {
-                if (Math.Abs(tile.Position.Column - this._selectedTile.Position.Column) != 1 &&
-                    Math.Abs(tile.Position.Row - this._selectedTile.Position.Row) != 1)
-                {
-                    Board.CapturePieces();
-                }
+                Board.CapturePieces(tile.Position, this._selectedTile.Position);
                 tile.Piece.Show(this._selectedTile.Piece.Color);
                 this._selectedTile.Piece.Hide();
                 this.Board.ResetHighlightedTiles();
                 SwitchTurn();
                 if (PlayerTurn is ComputerPlayer)
                 {
+                    await Task.Delay(1000);
                     PlayerTurn.MakeMove(this.Board);
                     SwitchTurn();
                 }

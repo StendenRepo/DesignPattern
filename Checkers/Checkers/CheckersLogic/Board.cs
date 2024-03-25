@@ -73,8 +73,11 @@ namespace Checkers.CheckersLogic
             return Tiles.First(t => t.Position.Column == pos.Column && t.Position.Row == pos.Row);
         }
 
-        public void CapturePieces()
+        public void CapturePieces(Position startPosition, Position endPosition)
         {
+            if (Math.Abs(startPosition.Column - endPosition.Column) == 1 ||
+                Math.Abs(startPosition.Row - endPosition.Row) == 1) return;
+            
             foreach (var capturedPosition in CapturedPositions)
             {
                 GetTileByPosition(capturedPosition).HidePiece();

@@ -30,11 +30,8 @@ public class ComputerPlayer : Player
         var endTile = board.GetTileByPosition(endPosition);
         
         board.GetPossibleMoves(startTile, this);
-        if (Math.Abs(startPosition.Column - endPosition.Column) != 1 &&
-            Math.Abs(startPosition.Row - endPosition.Row) != 1)
-        {
-            board.CapturePieces();
-        }
+        board.CapturePieces(startPosition, endPosition);
+        
         endTile.ShowPiece(startTile.Piece.Color);
         startTile.HidePiece();
     }
