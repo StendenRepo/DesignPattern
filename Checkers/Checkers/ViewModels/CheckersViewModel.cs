@@ -12,8 +12,9 @@ namespace Checkers.ViewModels
         private Player PlayerTurn { get; set; }
         private Player Player1 { get; set; }
         private Player Player2 { get; set; }
+        
         private GameStateHistory _gameStateHistory = new();
-        public GameSettings Settings { get; private set; }
+        private GameSettings Settings { get; }
 
         public CheckersViewModel(GameSettings settings)
         {
@@ -41,7 +42,7 @@ namespace Checkers.ViewModels
         }
 
         [ICommand]
-        public async Task SelectTile(Tile tile)
+        private async Task SelectTile(Tile tile)
         {
             // White tiles can't be selected
             if (tile.Color.Equals(AppColors.WhiteTile)) return;
@@ -62,7 +63,6 @@ namespace Checkers.ViewModels
                 }
                 
                 //TODO Add player state
-                _gameStateHistory.Add(Board.CreateState());
             }
             else
             {
@@ -72,10 +72,11 @@ namespace Checkers.ViewModels
                 Board.ShowPossibleMoves(this._selectedTile, this.PlayerTurn);
                 tile.Color = AppColors.SelectedTile;
             }
+            _gameStateHistory.Add(Board.CreateState());
         }
 
         [ICommand]
-        public void ResetGame()
+        private void ResetGame()
         {
             this.Board.Reset();
         }
@@ -86,9 +87,9 @@ namespace Checkers.ViewModels
         }
 
         [ICommand]
-        public void Undo()
+        private void Undo()
         {
-            GameState gameState = _gameStateHistory.Pop();
+            var gameState = _gameStateHistory.Pop();
             if (gameState != null)
             {
                 Board.Restore(gameState);

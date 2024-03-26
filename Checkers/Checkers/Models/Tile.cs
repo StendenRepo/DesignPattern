@@ -1,30 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Checkers.CheckersLogic;
+﻿using Checkers.CheckersLogic;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Checkers.Models
 {
-    public partial class Tile : ObservableObject
+    public partial class Tile : ObservableObject, ICloneable
     {
-        public Position Position { get; }
-        public bool IsSelected { get; set; }
-
-        public Piece Piece { get; set; }
+        public Position Position { get; set;  }
 
         [ObservableProperty] 
-        public Color _color;
+        private Piece _piece;
+
+        [ObservableProperty] 
+        private Color _color;
 
         public Tile(Position position)
         {
-            this.IsSelected = false;
             this.Position = position;
             this.Piece = new NormalPiece(position);
             SetStandardColor();
             SetPieceColor();
+        }
+
+        private Tile()
+        {
+            
         }
 
         public void SetStandardColor()
@@ -70,6 +69,19 @@ namespace Checkers.Models
         public void ShowPiece(Color color)
         {
             this.Piece.Color = color;
+        }
+        
+        public object Clone()
+        {
+            // Creates a deep copy of the tile and returns it
+            var clonedTile = new Tile()
+            {
+                Position = this.Position,
+                Color = this.Color,
+                Piece = new NormalPiece(Position),
+            };
+            clonedTile.Piece.Show(this.Piece.Color);
+            return clonedTile;
         }
     }
 }

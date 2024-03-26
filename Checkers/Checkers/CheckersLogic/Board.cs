@@ -1,13 +1,11 @@
 ﻿using System.Collections.ObjectModel;
 using Checkers.Models;
-using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Checkers.CheckersLogic
 {
-    public partial class Board : ObservableObject
+    public class Board
     {
-        [ObservableProperty]
-        public ObservableCollection<Tile> _tiles = new();
+        public ObservableCollection<Tile> Tiles { get; set; } = new();
         public List<Position> CapturedPositions { get; } = new();
 
         public void Initialize()
@@ -88,12 +86,21 @@ namespace Checkers.CheckersLogic
 
         public GameState CreateState()
         {
-            return new GameState(Tiles); 
+            var copy = new ObservableCollection<Tile>();
+            foreach (var tile in Tiles)
+            {
+                copy.Add((Tile)tile.Clone());
+            }
+            return new GameState(copy); 
         }
 
         public void Restore(GameState state)
         {
-            Tiles = state.Tiles;
+            Tiles.Clear();
+            foreach (var tile in state.Tiles)
+            {
+                Tiles.Add(tile);
+            }
         }
     }
 }
