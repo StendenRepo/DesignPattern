@@ -67,11 +67,6 @@ namespace Checkers.Models
             return this.Piece.Color;
         }
 
-        public void ShowPiece(Color color)
-        {
-            this.Piece.Color = color;
-        }
-
         public void ShowPiece(Color color, bool hasKing = false)
         {
             this.Piece.Color = color;
