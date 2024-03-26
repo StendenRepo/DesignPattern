@@ -1,11 +1,13 @@
 ﻿using System.Collections.ObjectModel;
 using Checkers.Models;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Checkers.CheckersLogic
 {
-    public class Board
+    public partial class Board : ObservableObject
     {
-        public ObservableCollection<Tile> Tiles { get; } = new();
+        [ObservableProperty]
+        public ObservableCollection<Tile> _tiles = new();
         public List<Position> CapturedPositions { get; } = new();
 
         public void Initialize()
@@ -82,6 +84,16 @@ namespace Checkers.CheckersLogic
             {
                 GetTileByPosition(capturedPosition).HidePiece();
             }
+        }
+
+        public GameState CreateState()
+        {
+            return new GameState(Tiles); 
+        }
+
+        public void Restore(GameState state)
+        {
+            Tiles = state.Tiles;
         }
     }
 }

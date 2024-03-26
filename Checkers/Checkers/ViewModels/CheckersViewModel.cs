@@ -12,6 +12,7 @@ namespace Checkers.ViewModels
         private Player PlayerTurn { get; set; }
         private Player Player1 { get; set; }
         private Player Player2 { get; set; }
+        private readonly GameStateHistory _gameStateHistory = new();
 
         public GameSettings Settings { get; private set; }
 
@@ -27,7 +28,7 @@ namespace Checkers.ViewModels
             this.Board.Initialize();
             this._selectedTile = null;
             this.Player1 = new HumanPlayer(true, "player1");
-            
+
             if (Settings.GameMode == GameMode.Single && Settings.Difficulty != null)
             {
                 this.Player2 = new ComputerPlayer(false, "player2", Settings.Difficulty);
@@ -36,7 +37,7 @@ namespace Checkers.ViewModels
             {
                 this.Player2 = new HumanPlayer(false, "player2");
             }
-            
+
             this.PlayerTurn = this.Player1;
         }
 
@@ -58,6 +59,7 @@ namespace Checkers.ViewModels
                 {
                     await Task.Delay(1000);
                     PlayerTurn.MakeMove(this.Board);
+                    _gameStateHistory.Add(Board.CreateState());
                     SwitchTurn();
                 }
             }
@@ -76,10 +78,16 @@ namespace Checkers.ViewModels
         {
             this.Board.Reset();
         }
-        
+
         private void SwitchTurn()
         {
             this.PlayerTurn = this.PlayerTurn == Player1 ? Player2 : Player1;
+        }
+
+        [ICommand]
+        public void Undo()
+        {
+            Board.Restore(_gameStateHistory.Pop());
         }
     }
 }

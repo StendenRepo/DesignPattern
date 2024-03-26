@@ -9,6 +9,7 @@
              Title="CheckersPage"
              BackgroundColor="gray">
     <VerticalStackLayout>
+        <Button Text="Undo" Command="{Binding UndoCommand}"></Button>
         <Grid BindableLayout.ItemsSource="{Binding Board.Tiles}" HorizontalOptions="Center" MaximumWidthRequest="720"  MaximumHeightRequest="720"  Margin="0" Padding="0"  ColumnDefinitions="*,*,*,*,*,*,*,*" RowDefinitions="*,*,*,*,*,*,*,*">
             <BindableLayout.ItemTemplate>
                 <DataTemplate x:DataType="models:Tile">
