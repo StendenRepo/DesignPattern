@@ -50,13 +50,8 @@ namespace Checkers.ViewModels
             if (this._selectedTile != null && tile.IsHighlighted())
             {
                 Board.CapturePieces(tile.Position, this._selectedTile.Position);
-                tile.Piece.Show(this._selectedTile.Piece.Color);
+                tile.ShowPiece(this._selectedTile.Piece.Color, this._selectedTile.Piece is KingDecorator);
                 this._selectedTile.Piece.Hide();
-                //Check of piece op het einde van het bord is
-                if (this.Board.CheckIfPieceIsAtEnd(tile.Position))
-                {
-                    //upgrade piece met de decorator
-                }
                 this.Board.ResetHighlightedTiles();
                 SwitchTurn();
                 if (PlayerTurn is ComputerPlayer)

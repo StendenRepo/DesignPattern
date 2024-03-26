@@ -13,7 +13,7 @@ namespace Checkers.Models
         public Position Position { get; }
         public bool IsSelected { get; set; }
 
-        public Piece Piece { get; set; }
+        [ObservableProperty] public Piece _piece;
 
         [ObservableProperty] 
         public Color _color;
@@ -70,6 +70,21 @@ namespace Checkers.Models
         public void ShowPiece(Color color)
         {
             this.Piece.Color = color;
+        }
+
+        public void ShowPiece(Color color, bool hasKing = false)
+        {
+            this.Piece.Color = color;
+            if (this.Position.Row == 0 && GetPieceColor().Equals(AppColors.WhitePiece) || this.Position.Row ==7 && GetPieceColor().Equals(AppColors.BlackPiece) || hasKing)
+            {
+                this.Piece = new KingDecorator(this.Position, this.Piece);
+                this.Piece.Color = color;
+            }
+            else
+            {
+                this.Piece = new NormalPiece(this.Position);
+                this.Piece.Color = color;
+            }
         }
     }
 }

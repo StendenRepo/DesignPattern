@@ -84,13 +84,5 @@ namespace Checkers.CheckersLogic
             }
         }
 
-        public Boolean CheckIfPieceIsAtEnd(Position position)
-        {
-            if(position.Row == 0 || position.Row == 7)
-            {
-                return true;
-            }
-            return false;
-        }
     }
 }
