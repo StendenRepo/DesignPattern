@@ -59,6 +59,7 @@ namespace Checkers.ViewModels
                 {
                     await Task.Delay(1000);
                     PlayerTurn.MakeMove(this.Board);
+                    //TODO Add player state
                     _gameStateHistory.Add(Board.CreateState());
                     SwitchTurn();
                 }

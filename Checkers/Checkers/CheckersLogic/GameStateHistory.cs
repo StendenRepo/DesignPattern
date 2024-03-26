@@ -14,6 +14,7 @@ public class GameStateHistory
     
     public GameState Pop()
     {
-            return _states.Pop();
+        //TODO fix out of bounds error
+        return _states.Pop();
     } 
 }
