@@ -12,8 +12,7 @@ namespace Checkers.ViewModels
         private Player PlayerTurn { get; set; }
         private Player Player1 { get; set; }
         private Player Player2 { get; set; }
-        private readonly GameStateHistory _gameStateHistory = new();
-
+        private GameStateHistory _gameStateHistory = new();
         public GameSettings Settings { get; private set; }
 
         public CheckersViewModel(GameSettings settings)
@@ -59,10 +58,11 @@ namespace Checkers.ViewModels
                 {
                     await Task.Delay(1000);
                     PlayerTurn.MakeMove(this.Board);
-                    //TODO Add player state
-                    _gameStateHistory.Add(Board.CreateState());
                     SwitchTurn();
                 }
+                
+                //TODO Add player state
+                _gameStateHistory.Add(Board.CreateState());
             }
             else
             {
@@ -88,7 +88,11 @@ namespace Checkers.ViewModels
         [ICommand]
         public void Undo()
         {
-            Board.Restore(_gameStateHistory.Pop());
+            GameState gameState = _gameStateHistory.Pop();
+            if (gameState != null)
+            {
+                Board.Restore(gameState);
+            }
         }
     }
 }
