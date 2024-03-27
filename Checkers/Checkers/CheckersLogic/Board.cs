@@ -87,20 +87,19 @@ namespace Checkers.CheckersLogic
         public GameState CreateState()
         {
             var copy = new ObservableCollection<Tile>();
+            
             foreach (var tile in Tiles)
-            {
                 copy.Add((Tile)tile.Clone());
-            }
+            
             return new GameState(copy); 
         }
 
         public void Restore(GameState state)
         {
             Tiles.Clear();
+            
             foreach (var tile in state.Tiles)
-            {
                 Tiles.Add(tile);
-            }
         }
     }
 }

@@ -39,6 +39,7 @@ namespace Checkers.ViewModels
             }
 
             this.PlayerTurn = this.Player1;
+            _gameStateHistory.Add(Board.CreateState());
         }
 
         [ICommand]
@@ -55,14 +56,19 @@ namespace Checkers.ViewModels
                 this._selectedTile.Piece.Hide();
                 this.Board.ResetHighlightedTiles();
                 SwitchTurn();
+                
+                //TODO Add player state
+                _gameStateHistory.Add(Board.CreateState());
+                
                 if (PlayerTurn is ComputerPlayer)
                 {
                     await Task.Delay(1000);
                     PlayerTurn.MakeMove(this.Board);
                     SwitchTurn();
+                    
+                    //TODO Add player state
+                    _gameStateHistory.Add(Board.CreateState());
                 }
-                
-                //TODO Add player state
             }
             else
             {
@@ -72,7 +78,6 @@ namespace Checkers.ViewModels
                 Board.ShowPossibleMoves(this._selectedTile, this.PlayerTurn);
                 tile.Color = AppColors.SelectedTile;
             }
-            _gameStateHistory.Add(Board.CreateState());
         }
 
         [ICommand]
@@ -90,10 +95,11 @@ namespace Checkers.ViewModels
         private void Undo()
         {
             var gameState = _gameStateHistory.Pop();
-            if (gameState != null)
-            {
-                Board.Restore(gameState);
-            }
+            
+            if (gameState == null) return;
+            
+            Board.Restore(gameState);
+            Board.ResetHighlightedTiles();
         }
     }
 }
