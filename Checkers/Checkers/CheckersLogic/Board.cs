@@ -25,6 +25,7 @@ namespace Checkers.CheckersLogic
             foreach (var tile in this.Tiles)
             {
                 tile.SetStandardColor();
+                tile.SetPieceColor();
             }
         }
 
@@ -84,5 +85,14 @@ namespace Checkers.CheckersLogic
             }
         }
 
+        public (int whitePieces, int blackPieces) GetPiecesCount()
+        {
+            var whitePieces = Tiles.Where(tile => tile.GetPieceColor().Equals(AppColors.WhitePiece))
+                .Count(tile => tile.HasPiece());
+            var blackPieces = Tiles.Where(tile => tile.GetPieceColor().Equals(AppColors.BlackPiece))
+                .Count(tile => tile.HasPiece());
+            
+            return (whitePieces, blackPieces);
+        }
     }
 }

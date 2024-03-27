@@ -7,11 +7,9 @@ namespace Checkers.Models
     {
         protected Position Position { get; }
 
-        [ObservableProperty] 
-        public Color _borderColor;
+        [ObservableProperty] private Color _borderColor;
 
-        [ObservableProperty]
-        public Color _color;
+        [ObservableProperty] private Color _color;
 
         protected Piece(Position position)
         {
@@ -21,18 +19,14 @@ namespace Checkers.Models
 
         public void SetStartingColor()
         {
-            if (this.Position.Row < 3)
+            this.Color = this.Position.Row switch
             {
-                this.Color = AppColors.BlackPiece;
-            }
-            else if (this.Position.Row > 4)
-            {
-                this.Color = AppColors.WhitePiece;
-            }
-            else
-            {
-                this.Color = Colors.Transparent;
-            }
+                < 3 => AppColors.BlackPiece,
+                > 4 => AppColors.WhitePiece,
+                _ => Colors.Transparent
+            };
+
+            this.BorderColor = Colors.Transparent;
         }
 
         public void Hide()

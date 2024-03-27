@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Checkers.CheckersLogic;
+﻿using Checkers.CheckersLogic;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Checkers.Models
@@ -13,10 +8,9 @@ namespace Checkers.Models
         public Position Position { get; }
         public bool IsSelected { get; set; }
 
-        [ObservableProperty] public Piece _piece;
+        [ObservableProperty] private Piece _piece;
 
-        [ObservableProperty] 
-        public Color _color;
+        [ObservableProperty] private Color _color;
 
         public Tile(Position position)
         {
@@ -37,7 +31,7 @@ namespace Checkers.Models
             this.Piece.Hide();
         }
 
-        private void SetPieceColor()
+        public void SetPieceColor()
         {
             this.Piece.SetStartingColor();
             if (this.Position.Row + this.Position.Column % 2 == 0 || this.Color.Equals(AppColors.WhiteTile))

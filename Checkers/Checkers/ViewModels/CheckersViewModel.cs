@@ -13,7 +13,7 @@ namespace Checkers.ViewModels
         private Player Player1 { get; set; }
         private Player Player2 { get; set; }
 
-        public GameSettings Settings { get; private set; }
+        private GameSettings Settings { get; }
 
         public CheckersViewModel(GameSettings settings)
         {
@@ -26,22 +26,22 @@ namespace Checkers.ViewModels
         {
             this.Board.Initialize();
             this._selectedTile = null;
-            this.Player1 = new HumanPlayer(true, "player1");
+            this.Player1 = new HumanPlayer(true);
             
             if (Settings.GameMode == GameMode.Single && Settings.Difficulty != null)
             {
-                this.Player2 = new ComputerPlayer(false, "player2", Settings.Difficulty);
+                this.Player2 = new ComputerPlayer(false, Settings.Difficulty);
             }
             else
             {
-                this.Player2 = new HumanPlayer(false, "player2");
+                this.Player2 = new HumanPlayer(false);
             }
             
             this.PlayerTurn = this.Player1;
         }
 
         [ICommand]
-        public async Task SelectTile(Tile tile)
+        private async Task SelectTile(Tile tile)
         {
             // White tiles can't be selected
             if (tile.Color.Equals(AppColors.WhiteTile)) return;
@@ -53,12 +53,12 @@ namespace Checkers.ViewModels
                 tile.ShowPiece(this._selectedTile.Piece.Color, this._selectedTile.Piece is KingDecorator);
                 this._selectedTile.Piece.Hide();
                 this.Board.ResetHighlightedTiles();
-                SwitchTurn();
+                await SwitchTurn();
                 if (PlayerTurn is ComputerPlayer)
                 {
                     await Task.Delay(1000);
                     PlayerTurn.MakeMove(this.Board);
-                    SwitchTurn();
+                    await SwitchTurn();
                 }
             }
             else
@@ -71,14 +71,21 @@ namespace Checkers.ViewModels
             }
         }
 
-        [ICommand]
-        public void ResetGame()
+        private async Task GameFinishedCheck()
         {
-            this.Board.Reset();
+            var (whitePieces, blackPieces) = Board.GetPiecesCount();
+            var winner = whitePieces <= 0 ? "Black" : "White";
+            
+            if (whitePieces <= 0 || blackPieces <= 0)
+            {
+                await Application.Current!.MainPage!.DisplayAlert("Game ended!", $"{winner} has won.", "Ok");
+                await Application.Current!.MainPage!.Navigation.PopAsync();
+            }
         }
         
-        private void SwitchTurn()
+        private async Task SwitchTurn()
         {
+            await GameFinishedCheck();
             this.PlayerTurn = this.PlayerTurn == Player1 ? Player2 : Player1;
         }
     }

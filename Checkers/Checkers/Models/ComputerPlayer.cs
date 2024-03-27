@@ -4,8 +4,8 @@ namespace Checkers.Models;
 
 public class ComputerPlayer : Player
 {
-    public IStrategy Strategy { get; set; }
-    public ComputerPlayer(bool isWhite, string name, IStrategy strategy) : base(isWhite, name)
+    private IStrategy Strategy { get; }
+    public ComputerPlayer(bool isWhite, IStrategy strategy) : base(isWhite)
     {
         this.Strategy = strategy;
     }
@@ -32,7 +32,7 @@ public class ComputerPlayer : Player
         board.GetPossibleMoves(startTile, this);
         board.CapturePieces(startPosition, endPosition);
         
-        endTile.ShowPiece(startTile.Piece.Color);
+        endTile.ShowPiece(startTile.Piece.Color, startTile.Piece is KingDecorator);
         startTile.HidePiece();
     }
 }
