@@ -3,7 +3,7 @@ using Checkers.Models;
 
 namespace Checkers.CheckersLogic
 {
-    public class Board
+    public class Board : ICloneable
     {
         public ObservableCollection<Tile> Tiles { get; set; } = new();
         public List<Position> CapturedPositions { get; } = new();
@@ -83,23 +83,20 @@ namespace Checkers.CheckersLogic
                 GetTileByPosition(capturedPosition).HidePiece();
             }
         }
-
-        public GameState CreateState()
+        
+        public object Clone()
         {
-            var copy = new ObservableCollection<Tile>();
+            var tilesCopy = new ObservableCollection<Tile>();
             
             foreach (var tile in Tiles)
-                copy.Add((Tile)tile.Clone());
-            
-            return new GameState(copy); 
-        }
+            {
+                tilesCopy.Add((Tile)tile.Clone());
+            }
 
-        public void Restore(GameState state)
-        {
-            Tiles.Clear();
-            
-            foreach (var tile in state.Tiles)
-                Tiles.Add(tile);
+            return new Board
+            {
+                Tiles = tilesCopy
+            };
         }
     }
 }

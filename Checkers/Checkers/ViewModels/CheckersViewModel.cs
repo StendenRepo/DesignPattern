@@ -8,7 +8,8 @@ namespace Checkers.ViewModels
     public partial class CheckersViewModel : ObservableObject
     {
         private Tile _selectedTile;
-        public Board Board { get; }
+
+        [ObservableProperty] private Board _board;
         private Player PlayerTurn { get; set; }
         private Player Player1 { get; set; }
         private Player Player2 { get; set; }
@@ -16,11 +17,14 @@ namespace Checkers.ViewModels
         private GameStateHistory _gameStateHistory = new();
         private GameSettings Settings { get; }
 
+        private int SetsDone { get; set; }
+
         public CheckersViewModel(GameSettings settings)
         {
             this.Board = new Board();
             this.Settings = settings;
             this.SetupGame();
+            this.SetsDone = 0;
         }
 
         private void SetupGame()
@@ -39,7 +43,7 @@ namespace Checkers.ViewModels
             }
 
             this.PlayerTurn = this.Player1;
-            _gameStateHistory.Add(Board.CreateState());
+            _gameStateHistory.Add(CreateState());
         }
 
         [ICommand]
@@ -57,17 +61,11 @@ namespace Checkers.ViewModels
                 this.Board.ResetHighlightedTiles();
                 SwitchTurn();
                 
-                //TODO Add player state
-                _gameStateHistory.Add(Board.CreateState());
-                
                 if (PlayerTurn is ComputerPlayer)
                 {
                     await Task.Delay(1000);
                     PlayerTurn.MakeMove(this.Board);
                     SwitchTurn();
-                    
-                    //TODO Add player state
-                    _gameStateHistory.Add(Board.CreateState());
                 }
             }
             else
@@ -77,6 +75,7 @@ namespace Checkers.ViewModels
                 this._selectedTile = tile;
                 Board.ShowPossibleMoves(this._selectedTile, this.PlayerTurn);
                 tile.Color = AppColors.SelectedTile;
+                _gameStateHistory.Add(CreateState());
             }
         }
 
@@ -95,11 +94,21 @@ namespace Checkers.ViewModels
         private void Undo()
         {
             var gameState = _gameStateHistory.Pop();
-            
             if (gameState == null) return;
-            
-            Board.Restore(gameState);
+            Restore(gameState);
             Board.ResetHighlightedTiles();
+        }
+
+        private GameState CreateState()
+        {
+            var boardCopy = Board.Clone();
+            return new GameState((Board)boardCopy, PlayerTurn); 
+        }
+
+        private void Restore(GameState state)
+        {
+            PlayerTurn = state.PlayerTurn;
+            Board = state.Board;
         }
     }
 }

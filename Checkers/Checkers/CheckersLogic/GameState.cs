@@ -5,10 +5,12 @@ namespace Checkers.CheckersLogic;
 
 public class GameState
 {
-    public ObservableCollection<Tile> Tiles { get; private set; }
+    public Board Board { get; private set; }
+    public Player PlayerTurn { get; set; }
 
-    public GameState(ObservableCollection<Tile> board)
+    public GameState(Board board, Player playerTurn)
     {
-        Tiles = board;
+        Board = board;
+        PlayerTurn = playerTurn;
     }
 }
