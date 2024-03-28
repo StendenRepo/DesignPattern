@@ -56,10 +56,11 @@ namespace Checkers.ViewModels
             if (this._selectedTile != null && tile.IsHighlighted())
             {
                 Board.CapturePieces(tile.Position, this._selectedTile.Position);
-                tile.Piece.Show(this._selectedTile.Piece.Color);
+                tile.ShowPiece(this._selectedTile.Piece.Color, this._selectedTile.Piece is KingDecorator);
                 this._selectedTile.Piece.Hide();
                 this.Board.ResetHighlightedTiles();
-                SwitchTurn();
+                this._selectedTile = null;
+                SwitchTurn(); // Move is now completed
                 
                 if (PlayerTurn is ComputerPlayer)
                 {
@@ -72,10 +73,16 @@ namespace Checkers.ViewModels
             {
                 if (!this.PlayerTurn.Color.Equals(tile.Piece.Color)) return;
                 if (!tile.HasPiece()) return;
+                
+                // Only create a state if a move has been completed
+                if (this._selectedTile == null)
+                {
+                    _gameStateHistory.Add(CreateState());
+                }
+                
                 this._selectedTile = tile;
                 Board.ShowPossibleMoves(this._selectedTile, this.PlayerTurn);
                 tile.Color = AppColors.SelectedTile;
-                _gameStateHistory.Add(CreateState());
             }
         }
 

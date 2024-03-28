@@ -7,12 +7,16 @@ namespace Checkers.Models
     {
         protected Position Position { get; }
 
+        [ObservableProperty] 
+        public Color _borderColor;
+
         [ObservableProperty]
         public Color _color;
 
         protected Piece(Position position)
         {
             this.Position = position;
+            this.BorderColor = this.Color;
         }
 
         public void SetStartingColor()
@@ -33,7 +37,7 @@ namespace Checkers.Models
 
         public void Hide()
         {
-            this.Color = Colors.Transparent;
+            this.Color = this.BorderColor = Colors.Transparent;
         }
 
         public void Show(Color color)
@@ -43,10 +47,9 @@ namespace Checkers.Models
 
         public abstract List<Position> GetMoves(Board board, Player player);
 
-        protected List<Position> GetPossibleMoves(Board board, Player player, Position position, int horizontalDirection = 0)
+        protected List<Position> GetPossibleMoves(Board board, Player player, Position position, int verticalDirection, int horizontalDirection = 0)
         {
             var possibleMoves = new List<Position>();
-            var verticalDirection = player.IsWhite ? -1 : 1;  // Adjust direction for player
             var opponentColor = player.IsWhite ? AppColors.BlackPiece : AppColors.WhitePiece;
             
             // Check diagonal moves in both directions
@@ -83,12 +86,12 @@ namespace Checkers.Models
                     if (positionTilePieceColor.Equals(player.Color)) continue;
                         
                     // Search further
-                    var moves = GetPossibleMoves(board, player, targetPosition);
+                    var moves = GetPossibleMoves(board, player, targetPosition, verticalDirection);
                     possibleMoves.AddRange(moves);
                 }
                 else if (!targetTilePieceColor.Equals(player.Color)) // Check if the opponent piece can be jumped.
                 {
-                    var jumpMoves = GetPossibleMoves(board, player, targetPosition,
+                    var jumpMoves = GetPossibleMoves(board, player, targetPosition, verticalDirection,
                         targetPosition.Column - position.Column);
                     possibleMoves.AddRange(jumpMoves);
                 }

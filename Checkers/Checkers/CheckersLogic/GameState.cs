@@ -5,8 +5,8 @@ namespace Checkers.CheckersLogic;
 
 public class GameState
 {
-    public Board Board { get; private set; }
-    public Player PlayerTurn { get; set; }
+    public Board Board { get; }
+    public Player PlayerTurn { get; }
 
     public GameState(Board board, Player playerTurn)
     {

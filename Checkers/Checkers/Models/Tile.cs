@@ -66,9 +66,19 @@ namespace Checkers.Models
             return this.Piece.Color;
         }
 
-        public void ShowPiece(Color color)
+        public void ShowPiece(Color color, bool hasKing = false)
         {
             this.Piece.Color = color;
+            if (this.Position.Row == 0 && GetPieceColor().Equals(AppColors.WhitePiece) || this.Position.Row ==7 && GetPieceColor().Equals(AppColors.BlackPiece) || hasKing)
+            {
+                this.Piece = new KingDecorator(this.Position, this.Piece);
+                this.Piece.Color = color;
+            }
+            else
+            {
+                this.Piece = new NormalPiece(this.Position);
+                this.Piece.Color = color;
+            }
         }
         
         public object Clone()

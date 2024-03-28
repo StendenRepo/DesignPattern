@@ -10,6 +10,8 @@ public class NormalPiece : Piece
 
     public override List<Position> GetMoves(Board board, Player player)
     {
-        return this.GetPossibleMoves(board, player, this.Position);
+        var verticalDirection = player.IsWhite ? -1 : 1;
+        return this.GetPossibleMoves(board, player, this.Position, verticalDirection);
+        
     }
 }
