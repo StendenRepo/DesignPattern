@@ -3,9 +3,9 @@ using Checkers.Models;
 
 namespace Checkers.CheckersLogic
 {
-    public class Board
+    public class Board : ICloneable
     {
-        public ObservableCollection<Tile> Tiles { get; } = new();
+        public ObservableCollection<Tile> Tiles { get; set; } = new();
         public List<Position> CapturedPositions { get; } = new();
 
         public void Initialize()
@@ -85,6 +85,21 @@ namespace Checkers.CheckersLogic
             }
         }
 
+        public object Clone()
+        {
+            var tilesCopy = new ObservableCollection<Tile>();
+
+            foreach (var tile in Tiles)
+            {
+                tilesCopy.Add((Tile)tile.Clone());
+            }
+
+            return new Board
+            {
+                Tiles = tilesCopy
+            };
+        }
+        
         public (int whitePieces, int blackPieces) GetPiecesCount()
         {
             var whitePieces = Tiles.Where(tile => tile.GetPieceColor().Equals(AppColors.WhitePiece))

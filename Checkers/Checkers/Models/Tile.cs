@@ -3,22 +3,27 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Checkers.Models
 {
-    public partial class Tile : ObservableObject
+    public partial class Tile : ObservableObject, ICloneable
     {
-        public Position Position { get; }
-        public bool IsSelected { get; set; }
+        public Position Position { get; set;  }
 
-        [ObservableProperty] private Piece _piece;
+        [ObservableProperty] 
+        private Piece _piece;
 
-        [ObservableProperty] private Color _color;
+        [ObservableProperty] 
+        private Color _color;
 
         public Tile(Position position)
         {
-            this.IsSelected = false;
             this.Position = position;
             this.Piece = new NormalPiece(position);
             SetStandardColor();
             SetPieceColor();
+        }
+
+        private Tile()
+        {
+            
         }
 
         public void SetStandardColor()
@@ -74,6 +79,19 @@ namespace Checkers.Models
                 this.Piece = new NormalPiece(this.Position);
                 this.Piece.Color = color;
             }
+        }
+        
+        public object Clone()
+        {
+            // Creates a deep copy of the tile and returns it
+            var clonedTile = new Tile()
+            {
+                Position = this.Position,
+                Color = this.Color,
+                Piece = new NormalPiece(Position),
+            };
+            clonedTile.Piece.Show(this.Piece.Color);
+            return clonedTile;
         }
     }
 }

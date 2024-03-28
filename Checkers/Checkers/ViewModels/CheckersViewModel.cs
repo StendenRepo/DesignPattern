@@ -8,12 +8,15 @@ namespace Checkers.ViewModels
     public partial class CheckersViewModel : ObservableObject
     {
         private Tile _selectedTile;
-        public Board Board { get; }
+
+        [ObservableProperty] private Board _board;
         private Player PlayerTurn { get; set; }
         private Player Player1 { get; set; }
         private Player Player2 { get; set; }
-
+        
+        private GameStateHistory _gameStateHistory = new();
         private GameSettings Settings { get; }
+        
 
         public CheckersViewModel(GameSettings settings)
         {
@@ -27,7 +30,6 @@ namespace Checkers.ViewModels
             this.Board.Initialize();
             this._selectedTile = null;
             this.Player1 = new HumanPlayer(true);
-            
             if (Settings.GameMode == GameMode.Single && Settings.Difficulty != null)
             {
                 this.Player2 = new ComputerPlayer(false, Settings.Difficulty);
@@ -38,6 +40,7 @@ namespace Checkers.ViewModels
             }
             
             this.PlayerTurn = this.Player1;
+            _gameStateHistory.Add(CreateState());
         }
 
         [ICommand]
@@ -53,7 +56,9 @@ namespace Checkers.ViewModels
                 tile.ShowPiece(this._selectedTile.Piece.Color, this._selectedTile.Piece is KingDecorator);
                 this._selectedTile.Piece.Hide();
                 this.Board.ResetHighlightedTiles();
+                this._selectedTile = null;
                 await SwitchTurn();
+                
                 if (PlayerTurn is ComputerPlayer)
                 {
                     await Task.Delay(1000);
@@ -65,6 +70,13 @@ namespace Checkers.ViewModels
             {
                 if (!this.PlayerTurn.Color.Equals(tile.Piece.Color)) return;
                 if (!tile.HasPiece()) return;
+                
+                // Only create a state if a move has been completed
+                if (this._selectedTile == null)
+                {
+                    _gameStateHistory.Add(CreateState());
+                }
+                
                 this._selectedTile = tile;
                 Board.ShowPossibleMoves(this._selectedTile, this.PlayerTurn);
                 tile.Color = AppColors.SelectedTile;
@@ -87,6 +99,27 @@ namespace Checkers.ViewModels
         {
             await GameFinishedCheck();
             this.PlayerTurn = this.PlayerTurn == Player1 ? Player2 : Player1;
+        }
+
+        [ICommand]
+        private void Undo()
+        {
+            var gameState = _gameStateHistory.Pop();
+            if (gameState == null) return;
+            Restore(gameState);
+            Board.ResetHighlightedTiles();
+        }
+
+        private GameState CreateState()
+        {
+            var boardCopy = Board.Clone();
+            return new GameState((Board)boardCopy, PlayerTurn); 
+        }
+
+        private void Restore(GameState state)
+        {
+            PlayerTurn = state.PlayerTurn;
+            Board = state.Board;
         }
     }
 }
