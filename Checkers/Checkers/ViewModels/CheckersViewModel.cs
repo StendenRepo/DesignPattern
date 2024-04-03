@@ -16,6 +16,8 @@ namespace Checkers.ViewModels
         
         private GameStateHistory _gameStateHistory = new();
         private GameSettings Settings { get; }
+
+        [ObservableProperty] private bool _switchDifficultyEnabled;
         
 
         public CheckersViewModel(GameSettings settings)
@@ -32,10 +34,12 @@ namespace Checkers.ViewModels
             this.Player1 = new HumanPlayer(true);
             if (Settings.GameMode == GameMode.Single && Settings.Difficulty != null)
             {
+                SwitchDifficultyEnabled = true;
                 this.Player2 = new ComputerPlayer(false, Settings.Difficulty);
             }
             else
             {
+                SwitchDifficultyEnabled = false;
                 this.Player2 = new HumanPlayer(false);
             }
             
