@@ -4,7 +4,7 @@ namespace Checkers.Models;
 
 public class ComputerPlayer : Player
 {
-    private IStrategy Strategy { get; }
+    public IStrategy Strategy { get; set; }
     public ComputerPlayer(bool isWhite, IStrategy strategy) : base(isWhite)
     {
         this.Strategy = strategy;

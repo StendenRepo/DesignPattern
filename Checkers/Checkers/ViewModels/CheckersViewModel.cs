@@ -121,5 +121,16 @@ namespace Checkers.ViewModels
             PlayerTurn = state.PlayerTurn;
             Board = state.Board;
         }
+
+        [ICommand]
+        private void SwitchDifficulty()
+        {
+            if (Player2 is ComputerPlayer computerPlayer)
+            {
+                computerPlayer.Strategy = computerPlayer.Strategy is BasicDifficulty
+                    ? new AdvancedDifficulty()
+                    : new BasicDifficulty();
+            }
+        }
     }
 }
