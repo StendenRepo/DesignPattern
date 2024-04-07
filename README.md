@@ -15,5 +15,5 @@ Windows
 
 ### Runnen via executable
 
-- De app kan ook via het via de mail meegeleverde zip bestand met een executable (.exe) file gerund worden.
+- De app kan ook via het via het `win10-x64.zip` meegeleverde zip gerund worden door de executable te runnen.
 - In dat geval wordt er bij het starten van de app een waarschuwing gegeven dat het van een unknown publisher komt, deze kan genegeerd worden.
