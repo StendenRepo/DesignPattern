@@ -98,7 +98,7 @@ namespace Checkers.CheckersLogic
             {
                 Tiles = tilesCopy
             };
-        }
+           }
         
         public (int whitePieces, int blackPieces) GetPiecesCount()
         {

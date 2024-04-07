@@ -7,14 +7,15 @@ Het idee van deze opdracht is om een damspel te maken in C#. Het is de bedoeling
 Must have
 
 - Volledig werkend dam spel
-  - Simpel User interface
-  - Lokaal multiplayer
-  - Board resetten
+  - Simpele User interface
+  - Lokale multiplayer
+  - Win conditie
 
 Should have
 
-- Scoreboard
+- Verschillende difficulty's
 - Laatste move(s) ongedaan maken
+- Scoreboard
 
 Could have
 
@@ -23,7 +24,6 @@ Could have
 - Verschillende moeilijkheidsgraad
 - Forceer slaan gamemode
 - Leaderboard
--
 
 Wont have
 
@@ -34,14 +34,6 @@ Wont have
 **Memento**
 Deze pattern gaat gebruikt worden om een move history bij te houden.
 Hiermee kan de laatste move(s) ongedaan worden gemaakt en het bord gereset worden. Zonder deze pattern kan de gebruiker niet terug naar een vorige move. Zonder een memento is het lastig om deze functionaliteit te implementeren omdat je dan alle properties over moet kopieren.
-
-**Observer**
-Met de observer gaan we zorgen dat klassen zoals het scorebord en het bord niet aan elkaar gekoppeld zijn. De Game klasse regelt de relatie tussen de verschillende klassen zoals het bord, scoreboard en player. Hierdoor is de code makkelijker te onderhouden en uit te breiden.
-
-Een andere optie is om de Piece class x en y coordinaten te geven en daar de subject van te maken. De board class krijgt dan een notificatie als de coordinaten van de een piece zijn veranderd.
-
-**Object pool**
-De object is voor verantwoordelijk voor het aanmaken en beheren van alle pieces. Dit is makkelijk omdat een damspel een vast aantal pieces heeft die eenmaal aangemaakt kunnen worden en zodra ze niet meer nodig zijn weggegooid worden uit het geheugen.
 
 **Strategy**
 De strategy wordt gebruikt voor het aanpassen van het algoritme van de computer op basis van de staat van de game.

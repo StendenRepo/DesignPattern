@@ -14,7 +14,7 @@ public class GameStateHistory
         Debug.WriteLine(_states.Count);
     }
     
-    public GameState Pop()
+    public GameState Undo()
     {
         Debug.WriteLine(_states.Count);
         return _states.Count > 0 ? _states.Pop() : null;

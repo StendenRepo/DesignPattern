@@ -108,7 +108,7 @@ namespace Checkers.ViewModels
         [ICommand]
         private void Undo()
         {
-            var gameState = _gameStateHistory.Pop();
+            var gameState = _gameStateHistory.Undo();
             if (gameState == null) return;
             Restore(gameState);
             Board.ResetHighlightedTiles();
